@@ -58,14 +58,14 @@ class Gambler:
     # if "team chosen" = "winner team in list"
     if self.bets[1] == self.house.bets[match][3]:
       # bug always calculating the visitant quote for the winner
-      won = (self.house.bets[match][self.bets[2]] * self.bets[3]) - self.bets[3]
+      won = round((self.house.bets[match][self.bets[2]] * self.bets[3]) - self.bets[3])
       self.money += won
       self.bets = []
       print("You won: " + str(won))
     else:
-      self.money -= self.bets[3]
-      self.bets = []
+      self.money -= self.bets[3]  
       print("You lost: " + str(self.bets[3]))
+      self.bets = []
 
      
      
@@ -74,22 +74,22 @@ class Gambler:
 
 betplay = House("betplay", "1000000000", {})
 betplay.addMatch("Crystal Palace vs Manchester City", [10.96, 5.48, 1.28])
-print(betplay.bets)
+# print(betplay.bets)
 betplay.removeMatch("Crystal Palace vs Manchester City")
-print(betplay.bets)
+# print(betplay.bets)
 betplay.addMatch("Crystal Palace vs Manchester City", [10.96, 5.48, 1.28])
 betplay.updateOdds("Crystal Palace vs Manchester City", [10.15, 5.40, 1.33])
-print(betplay.bets)
+# print(betplay.bets)
 betplay.setWinner("Crystal Palace vs Manchester City", "Manchester City")
-print(betplay.bets)
+# print(betplay.bets)
 
 diego = Gambler("Diego", 1000, False, betplay, [], [])
 # diego.chooseMatch("Crystal Palace vs Manchester City")
-print("Important test ")
+print("----------first match--------")
 diego.chooseMatchTeamMoney("Crystal Palace vs Manchester City", "Manchester City", 2, 100)
 #diego.chooseMatchTeamMoney("Manchester United vs Liverpool", 2, 100)
-print(diego.bets)
-print("Check results function on gambler")
+# print(diego.bets)
+# print("Check results function on gambler")
 diego.checkResults("Crystal Palace vs Manchester City")
 
 print("----------second match--------")
@@ -107,3 +107,9 @@ betplay.setWinner("PSG vs Clermont Foot", "PSG")
 diego.checkResults("PSG vs Clermont Foot")
 print("Account balance: " + str(diego.money))
 
+print("----------fourth match--------")
+betplay.addMatch("Aston Villa vs Brentford", [1.62, 4.00, 5.50])
+diego.chooseMatchTeamMoney("Aston Villa vs Brentford", "Aston Villa", 0, 100)
+betplay.setWinner("Aston Villa vs Brentford", "None")
+diego.checkResults("Aston Villa vs Brentford")
+print("Account balance: " + str(diego.money))
